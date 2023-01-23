@@ -1,0 +1,205 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout>
+  <div class="nav">
+    <a class="icon button" href="./index.html">
+      <span class="material-symbols-rounded blue">arrow_back</span><span>Parcelle "TestIsagri6"</span>
+    </a>
+    <!-- <div class="user">
+      <span class="label">Bienvenue Michel Durand</span>
+      <button class="icon"><span class="material-symbols-rounded blue">person</span></button>
+    </div> -->
+  </div>
+
+  <main>
+    <div class="subnav">
+      <a class="icon button">
+        <span class="material-symbols-rounded light">chevron_left</span><span>Précédente</span>
+      </a>
+      <a class="button icon">
+        <span>Suivante</span><span class="material-symbols-rounded light">chevron_right</span>
+      </a>
+    </div>
+
+    <div class="update">
+      <p>Informations mises à jour le 01/12/22 - 17h55</p>
+      <button>Actualiser</button>
+    </div>
+
+    <div class="plot-detail">
+      <div class="status risk stade-5"></div>
+      <div>
+        <ul class="infos">
+          <li class="hidden-small"><div class="label">Exploitation</div><div class="value">ISAGRI1</div></li>
+          <li class="hidden-small"><div class="label">Parcelle</div><div class="value">ISAGRI2</div></li>
+          <!-- <li><div class="label">Station</div><div class="value">Boigneville METEUS (1039)<br/><span class="lower">(dernières données: 29/11/2022 14H TU)</span></div></li> -->
+          <!-- <li class="hidden-small"><div class="label">Station de prévision</div><div class="value">Dourdan</div></li> -->
+          <li><div class="label">Variété</div><div class="value">ANNABELLE</div></li>
+          <li><div class="label">Date de levée</div><div class="value">18/05/2022</div></li>
+        </ul>
+        <div class="advice risk">
+          <strong>Conseil</strong>: Un traitement était préconisé le 24/09/2022. Traiter le 29/11/2022 avec un prénétrant
+        </div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <!-- <tr class="periods">
+          <td></td>
+          <td colspan="6">Réel</td>
+          <td colspan="2">Prévisionnel</td>
+        </tr> -->
+        <tr class="date-selector">
+          <td class="legend head"></td>
+          <td class="j-4"></td>
+          <td class="j-3"></td>
+          <td class="j-2"></td>
+          <td class="j-1"></td>
+          <td class="j" colspan="2">
+            <div><button><span class="material-symbols-rounded blue">calendar_month</span></button></div>
+          </td>
+          <td class="j+1"></td>
+          <td class="j+2"></td>
+        </tr>
+        <tr class="dates">
+          <td class="legend head"></td>
+          <td class="j-4">20/11/2022</td>
+          <td class="j-3">21/11/2022</td>
+          <td class="j-2">22/11/2022</td>
+          <td class="j-1">23/11/2022</td>
+          <td class="j left right top" colspan="2">24/11/2022</td>
+          <td class="j1">25/11/2022</td>
+          <td class="j2">25/11/2022</td>
+        </tr>
+      </thead>
+
+      <tr class="row-legend">
+        <td colspan="9"><span>réserve de spores</span></td>
+      </tr>
+      <tr>
+        <td class="legend">réserve de spores</td>
+        <td class="j-4">8.99</td>
+        <td class="j-3">8.99</td>
+        <td class="j-2">8.99</td>
+        <td class="j-1">8.99</td>
+        <td class="j left">8.99</td>
+        <td class="j right forecast">8.99</td>
+        <td class="j1 forecast">8.99</td>
+        <td class="j2 forecast">8.99</td>
+      </tr>
+
+      <tr class="row-legend">
+        <td colspan="9"><span>Index de contamination</span></td>
+      </tr>
+      <tr>
+        <td class="legend">Index de contamination</td>
+        <td class="j-4">8.99</td>
+        <td class="j-3">8.99</td>
+        <td class="j-2">8.99</td>
+        <td class="j-1">8.99</td>
+        <td class="j left">8.99</td>
+        <td class="j right forecast">8.99</td>
+        <td class="j1 forecast">8.99</td>
+        <td class="j2 forecast">8.99</td>
+      </tr>
+      
+      <tr class="row-legend">
+        <td colspan="9"><span>Poids de contamination</span></td>
+      </tr>
+      <tr>
+        <td class="legend">Poids de contamination</td>
+        <td class="j-4 risk">8.99</td>
+        <td class="j-3 vigilance">8.99</td>
+        <td class="j-2 no-risk">8.99</td>
+        <td class="j-1 no-risk">8.99</td>
+        <td class="j left no-risk">8.99</td>
+        <td class="j right forecast risk">8.99</td>
+        <td class="j1 forecast risk">8.99</td>
+        <td class="j2 forecast no-risk">8.99</td>
+      </tr>
+
+
+      <tr class="row-legend">
+        <td colspan="9"><span>Potentiel de sporulation</span></td>
+      </tr>
+      <tr>
+        <td class="legend">Potentiel de sporulation</td>
+        <td class="j-4">8.99</td>
+        <td class="j-3">8.99</td>
+        <td class="j-2">8.99</td>
+        <td class="j-1">8.99</td>
+        <td class="j left">8.99</td>
+        <td class="j right forecast">8.99</td>
+        <td class="j1 forecast">8.99</td>
+        <td class="j2 forecast">8.99</td>
+      </tr>
+
+      <tr class="row-legend">
+        <td colspan="9"><span>Pluie (en mm)</span></td>
+      </tr>
+      <tr>
+        <td class="legend">Pluie (en mm)</td>
+        <td class="j-4">8.99</td>
+        <td class="j-3">8.99</td>
+        <td class="j-2">8.99</td>
+        <td class="j-1">8.99</td>
+        <td class="j left right" colspan="2">8.99</td>
+        <td class="j1 forecast">8.99</td>
+        <td class="j2 forecast">8.99</td>
+      </tr>
+
+      <tr class="row-legend">
+        <td colspan="9"><span>résistance au lessivage restante (en mm)</span></td>
+      </tr>
+      <tr>
+        <td class="legend">résistance au lessivage restante (en mm)</td>
+        <td class="j-4">8.99</td>
+        <td class="j-3">8.99</td>
+        <td class="j-2">8.99</td>
+        <td class="j-1">8.99</td>
+        <td class="j left">8.99</td>
+        <td class="j right forecast">8.99</td>
+        <td class="j1 forecast">8.99</td>
+        <td class="j2 forecast">8.99</td>
+      </tr>
+
+      <tr class="row-legend">
+        <td colspan="9"><span>Parcelle protégée ?</span></td>
+      </tr>
+      <tr>
+        <td class="legend">Parcelle protégée ?</td>
+        <td class="j-4">Non</td>
+        <td class="j-3">Non</td>
+        <td class="j-2">Non</td>
+        <td class="j-1">Non</td>
+        <td class="j left bottom">Non</td>
+        <td class="j right bottom forecast">Non</td>
+        <td class="j1 forecast">Non</td>
+        <td class="j2 forecast">Non</td>
+      </tr>
+
+    </table>
+
+    <div class="legends">
+      <div class="legends-group">
+        <h4>Réel</h4>
+        <ul>
+          <li class="no-risk">Pas de risque</li>
+          <li class="vigilance">Vigilance</li>
+          <li class="risk">Risque</li>
+        </ul>
+      </div>
+      <div class="legends-group">
+        <h4>Prévisionnel</h4>
+        <ul>
+          <li class="no-risk forecast">Pas de risque</li>
+          <li class="risk forecast">Risque</li>
+        </ul>
+      </div>
+    </div>
+
+    
+  </main>
+</Layout>

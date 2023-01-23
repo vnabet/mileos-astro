@@ -1,0 +1,974 @@
+/************************************************************/
+/** INDEX                                                   */
+/** 01- Variables                                           */
+/** 02- Global                                              */
+/** 03- Header                                              */
+/** 04- Navigation                                          */
+/** 05- Main content                                        */
+/** 06- Liste des parcelles                                 */
+/** 07- Bloc de mise à jour                                 */
+/** 08- Détail d'une parcelle                               */
+/** 09- Bloc des conseils                                   */
+/** 10- Tableau des risques                                 */
+/** 11- Légende du tableau des risques                      */
+/** 12- Pied de page                                        */
+/************************************************************/
+
+/* @import url(./reset.css); */
+
+/************************************************************/
+/** 01- Variables                                           */
+/************************************************************/
+:root {
+  /* --bg-dark-color: #f1f1f1; */
+  --bg-darken-color: #dcdcdc;
+  --bg-dark-color: #F2F2F2;
+  --bg-light-color: #fff;
+
+  /* --border-color:  */
+
+  --blue-color: #1d83f6;
+  --green-color: #94cc3d;
+  --green-color-alpha: #94cc3d55;
+  --red-color: #be202e;
+  --red-color-alpha: #be202e55;
+  --red-light-color: #df6c76;
+  --orange-color: #ffa500;
+  --orange-color-alpha: #ffa50055;
+
+  --text-color: #000;
+  --text-light-color: #8b8b8b;
+  /* --text-light-color: #dcdcdc; */
+
+  /* --content-size: clamp(200px, 100vw, 1024px); */
+  --content-size: clamp(200px, 100vw, 1200px);
+}
+
+/************************************************************/
+/** 02- Global                                              */
+/************************************************************/
+* {
+  color: var(--text-color);
+}
+
+body {
+  background-color: var(--bg-dark-color);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: clamp(1rem, 4vw, 1.85rem);
+}
+
+h2 {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+}
+
+/** Surcharge des icones material symbols **/ 
+.material-symbols-rounded {
+  font-size: 30px;
+}
+
+.material-symbols-rounded.small {
+  font-size: 24px;
+}
+
+/** Couleur de texte **/
+.blue {
+  color: var(--blue-color);
+}
+
+.red {
+  color: var(--red-color);
+}
+
+.green {
+  color: var(--green-color);
+}
+
+.light {
+  color: var(--text-light-color);
+}
+
+.white {
+  color: white;
+}
+
+/** Boutons et liens boutons **/
+button, a.button {
+  display: inline-block;
+  background-color: transparent;
+  border-style: none;
+  outline: none;
+  display: flex;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+a.button {
+  text-decoration: none;
+}
+
+button.icon, a.button.icon {
+  line-height: 2;
+  font-weight: 700;
+  padding: 0;
+  font-size: 1.2rem;
+}
+
+/** Mise en forme des fieldset **/
+fieldset {
+  /* border: none; */
+  border-color: var(--bg-dark-color);
+  border-radius: 5px;
+  display: flex;
+  gap: 10px;
+
+  /* margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-block-start: 0;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+  padding-block-end: 0; */
+}
+
+fieldset legend {
+  /* color: var(--text-light-color); */
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+/** Radio button sous forme de boutons **/
+input[type='radio'] {
+  display: none;
+}
+
+input[type='radio']+label {
+  padding: 5px;
+  background-color: var(--bg-dark-color);
+  font-size: .9rem;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 5px;
+  /* color: white; */
+  /* border: 1px dashed blue; */
+}
+
+input[type='radio']:checked+label {
+  /* border: 1px solid orange; */
+  background-color: var(--blue-color);
+  color: white;
+}
+
+/** Elements clickables.**/ 
+/** On récupère le premier lien enfant de l'élément pour rendre ce dernier cliquable **/
+.clickable  {
+  position: relative;
+}
+
+.clickable a:first-child::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* background-color: #000;
+  opacity: .3; */
+  top:0;
+  left: 0;
+}
+
+/** Texte en petit **/
+.lower {
+  font-size: .9em;
+}
+
+/** Eléments à masquer sur mobile **/
+.hidden-small {
+  display: none !important;
+}
+
+@media(min-width: 768px) {
+  .hidden-small {
+    display: inherit !important;
+  }
+}
+
+/************************************************************/
+/** 03- Header                                              */
+/************************************************************/
+header {
+  width: var(--content-size);
+  position: relative;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-light-color);
+  padding: 10px;
+}
+
+header img {
+  width: clamp(80px, 80px + 10vw ,200px);
+}
+
+@media(min-width: 768px) {
+  header {
+    height: 100px;
+  }
+}
+
+@media(min-width: 992px){
+  
+}
+
+/************************************************************/
+/** 04- Navigation                                          */
+/************************************************************/
+.nav {
+  width: var(--content-size);
+  /* align-self: flex-start; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  height: 60px;
+  background-color: var(--bg-dark-color);
+  padding: 0 5px;
+  z-index: 99;
+}
+
+.user {
+  display: flex;
+  flex: 1;
+  line-height: 2;
+  justify-content: flex-end;
+}
+
+.user .label {
+  display: none;
+  padding-right: 20px;
+}
+
+@media(min-width: 768px) {
+  .user .label {
+    display: inline-block;
+  }
+}
+
+
+.subnav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.subnav a.button {
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 2.3;
+}
+
+/************************************************************/
+/** 05- Main content                                        */
+/************************************************************/
+main {
+  width: var(--content-size);
+  background-color: var(--bg-light-color);
+  padding: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* flex-direction: column-reverse; */
+  gap: 10px;
+
+}
+
+/* @media(min-width: 768px) {
+  main {
+    flex-direction: column;
+  }
+} */
+
+/************************************************************/
+/** 06- Liste des parcelles                                 */
+/************************************************************/
+.group {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+}
+
+ul.plots {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  position: relative;
+  width: 100%;
+}
+
+ul.plots li {
+  width: 100%;
+  display: flex;
+  border: 1px solid var(--bg-darken-color);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* ul.plots .status, .plot-detail .status {
+  display: flex;
+  min-width: 60px;
+  min-height: 60px;
+  height: 60px;
+  width: 60px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  outline-width: 2px;
+  outline-style: solid;
+  outline-offset: 5px;
+  margin: 10px;
+  position: relative;
+} */
+.status {
+  display: flex;
+  min-width: 60px;
+  min-height: 60px;
+  height: 70px;
+  width: 70px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  /* margin: 10px; */
+  position: relative;
+  border: 3px solid var(--bg-darken-color);
+}
+
+
+.daltonisme .status::before {
+  content: '?';
+  position: absolute;
+  top: 0;
+  left: 4px;
+  z-index: 99;
+  color: white;
+  font-size: .9rem;
+  display: block;
+}
+
+/* .status .indicator {
+  font-size: .9rem;
+  position: absolute;
+  top: 0px;
+  left: 2px;
+
+} */
+
+.status.no-risk {
+  /* background-color: var(--green-color);
+  outline-color: var(--green-color); */
+  border-color: var(--green-color);
+  /* background-color: var(--green-color-alpha); */
+}
+
+.daltonisme .status.no-risk::before {
+  content: '✔';
+}
+
+.status.risk {
+  /* background-color: var(--red-color);
+  outline-color: var(--red-color); */
+  border-color: var(--red-color);
+  /* background-color: var(--red-color-alpha); */
+}
+
+.daltonisme .status.risk::before {
+  content: 'R';
+}
+
+.status.warning {
+  /* background-color: var(--orange-color);
+  outline-color: var(--orange-color); */
+  border-color: var(--orange-color);
+  /* background-color: var(--orange-color-alpha); */
+}
+
+.daltonisme .status.warning::before {
+  content: '!';
+}
+
+.status.unknown {
+  /* background-color: var(--text-light-color);
+  outline-color: var(--text-light-color); */
+  border-color: var(--text-light-color);
+  /* background-color: var(--bg-darken-color); */
+}
+
+.daltonisme .status.unknown::before {
+  content: '?';
+}
+
+/**  Stades **/
+.status.stade-1 {
+  background-image: url('/images/stages/1.png');
+}
+
+.status.stade-2 {
+  background-image: url('/images/stages/2.png');
+}
+
+.status.stade-3 {
+  background-image: url('/images/stages/3.png');
+}
+
+.status.stade-4 {
+  background-image: url('/images/stages/4.png');
+}
+
+.status.stade-5 {
+  background-image: url('/images/stages/5.png');
+}
+
+.status.stade-6 {
+  background-image: url('/images/stages/6.png');
+}
+
+.status.stade-7 {
+  background-image: url('/images/stages/7.png');
+}
+
+ul.plots .detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10px;
+}
+
+ul.plots .detail h3 {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+ul.plots .detail h3 a {
+  color: var(--blue-color);
+  text-decoration: none;
+}
+
+ul.plots .detail p {
+  
+  line-height: 1.2;
+}
+
+@media(min-width: 768px) {
+  ul.plots li {
+    width: calc(50% - 5px);
+  }
+}
+
+@media(min-width: 1024px) {
+  ul.plots li {
+    width: calc(33% - 5px);
+  }
+}
+
+
+/************************************************************/
+/** 07- Bloc de mise à jour                                 */
+/************************************************************/
+.update button {
+  background-color: var(--green-color);
+  color: white;
+}
+
+.update {
+  color: var(--text-light-color);
+}
+
+@media(min-width: 768px) {
+  .update {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+}
+
+
+/************************************************************/
+/** 08- Détail d'une parcelle                               */
+/************************************************************/
+.plot-detail {
+  position: relative;
+  width: 100%;
+  display: flex;
+  /* height: 80px; */
+  /* overflow: hidden; */
+}
+
+.plot-detail>div:not(.status) {
+  flex: 1;
+}
+
+.plot-detail ul.infos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  column-gap: 25px;
+  flex-grow: 1;
+  font-size: .85rem;
+}
+
+.plot-detail .status {
+  display: none;
+}
+
+.plot-detail ul.infos li {
+  /* width: calc(50% - 15px); */
+  position: relative;
+  display: flex;
+  border-bottom: 1px solid var(--bg-darken-color);
+}
+
+.plot-detail .label {
+  color: var(--text-light-color);
+  width: 100px;
+}
+
+.plot-detail .value {
+  text-align: left;
+  flex-grow: 1;
+}
+
+@media(min-width: 768px) {
+  .plot-detail {
+    max-height: 80px;
+  }
+
+  .plot-detail>div:not(.status) {
+    height: 40px;
+  }
+
+  .plot-detail ul.infos {
+    flex-wrap: wrap;
+    height: 100%;
+    align-content: flex-start;
+    margin-left: 10px;
+  }
+
+  .plot-detail ul.infos li {
+    width: calc(33% - 25px);
+  }
+
+
+  .plot-detail .status {
+    display: flex;
+  }
+}
+
+/************************************************************/
+/** 09- Bloc des conseils                                   */
+/************************************************************/
+.advice {
+  /* margin: 20px 0;
+  border: 1px solid var(--bg-dark-color);
+  padding: 20px; */
+}
+
+.advice.risk, .advice.risk strong {
+  color: var(--red-color);
+}
+
+.advice.risk::before {
+  content: '\E000';
+  font-family: 'Material Symbols Rounded';
+  font-size: 1.2rem;
+}
+
+@media(min-width: 768px) {
+  .advice {
+    margin-left: 10px;
+  }
+}
+
+
+/************************************************************/
+/** 10- Tableau des risques                                 */
+/************************************************************/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+
+td {
+  text-align: center;
+  border: 1px solid var(--bg-darken-color);
+  position: relative;
+}
+
+td.left {
+  border-left-width: px;
+  border-left-color: var(--bg-darken-color);
+}
+
+td.right {
+  border-right-width: 2px;
+  border-right-color: var(--bg-darken-color);
+}
+
+td.bottom {
+  border-bottom-width: 2px;
+  border-bottom-color: var(--bg-darken-color);
+}
+
+td.top {
+  border-top-width: 2px;
+  border-top-color: var(--bg-darken-color);
+}
+
+td.forecast {
+  background-color: var(--bg-dark-color);
+}
+
+.daltonisme td.forecast {
+  background-color: var(--bg-dark-color);
+  background: repeating-linear-gradient(
+  -45deg,
+  var(--bg-light-color),
+  var(--bg-light-color) 10px,
+  var(--bg-dark-color) 10px,
+  var(--bg-dark-color) 20px
+);
+}
+
+.dates td:first-child, .row-legend td , .date-selector td {
+  border: none;
+}
+
+.date-selector .j>div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.periods {
+  display: none;
+}
+
+.row-legend span, td.legend {
+  color: var(--text-light-color);
+}
+
+.row-legend span, td.legend:not(.head) {
+  text-align: left;
+  font-style: italic;
+  padding: .1em;
+}
+
+.row-legend span {
+  width: 100%;
+  display: block;
+  margin-top: .6rem;
+  outline: 1px solid var(--bg-dark-color);
+  outline-offset: 1px;
+}
+
+.legend, .j-4, .j-3, .j-2, .j2 {
+  display: none;
+}
+
+.j {
+  font-weight: 700;
+}
+
+.dates td.j {
+  min-width: 150px;
+}
+
+td.forecast {
+  color: var(--text-light-color);
+}
+
+td.risk:not(.forecast) {
+  background-color: var(--red-color);
+  color: white;
+}
+
+/* .daltonisme td.risk:not(.forecast) {
+  background-color: var(--red-color);
+  background: repeating-linear-gradient(
+  90deg,
+  var(--red-color),
+  var(--red-color) 10px,
+  var(--red-light-color) 10px,
+  var(--red-light-color) 20px
+);
+} */
+
+
+.daltonisme td:is(.risk, .vigilance, .no-risk)::before {
+  position: absolute;;
+  top:2px;
+  left: 2px;
+  font-size: .7rem;
+  /* font-weight: 700; */
+}
+
+/* td:is(.risk, .vigilance, .no-risk).forecast::before {
+  color: var(--text-color);
+} */
+
+.daltonisme td.risk::before {
+  content: 'R';
+}
+
+td.risk.forecast {
+  color: var(--red-color);
+}
+
+td.vigilance:not(.forecast) {
+  background-color: var(--orange-color);
+  /* color: white; */
+}
+
+.daltonisme td.vigilance::before {
+  content: '!';
+}
+
+td.vigilance.forecast {
+  color: var(--orange-color);
+  /* text-shadow: black 1px 0 2px; */
+  /* -webkit-text-stroke: 1px black; */
+}
+
+.daltonisme td.no-risk::before {
+  content: '\2714';
+  
+}
+
+td.no-risk:not(.forecast) {
+  background-color: var(--green-color);
+}
+
+td.no-risk.forecast {
+  color: var(--text-color);
+}
+
+@media(min-width: 768px) {
+  .j-2, .j2 {
+    display: table-cell;
+  }
+}
+
+@media(min-width: 992px) {
+  .row-legend {
+    display: none;
+  }
+
+  .legend, .j-4, .j-3 {
+    display: table-cell;
+  }
+
+  .periods {
+    display: table-row;
+  }
+
+  .periods td:first-child {
+    background-color: transparent;
+  }
+}
+
+/************************************************************/
+/** 11- Légende du tableau des risques                      */
+/************************************************************/
+.legends {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  font-size: .8em;
+  position: relative;
+}
+
+.legends-group {
+  flex: 1;
+}
+
+.legends h4 {
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.legends ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 10px;
+  border: 1px solid var(--bg-darken-color);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.legends li {
+  display: flex;
+  align-items: center;
+}
+
+.legends li::before  {
+  content:'0-9';
+  font-size: .8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2px;
+  width: 40px;
+  height: 20px;
+  background-color: transparent;
+  margin: 0 5px;
+  border: 1px solid var(--bg-darken-color)
+}
+
+li.forecast::before {
+  background-color: var(--bg-dark-color);
+}
+
+.daltonisme li.forecast::before {
+  background: repeating-linear-gradient(
+  -45deg,
+  var(--bg-light-color),
+  var(--bg-light-color) 5px,
+  var(--bg-dark-color) 5px,
+  var(--bg-dark-color) 10px
+);
+}
+
+li.risk::before {
+  content: '0-9';
+}
+
+.daltonisme li.risk::before {
+  content: 'R 0-9';
+}
+
+li.risk:not(.forecast)::before {
+  background-color: var(--red-color);
+  color: white;
+}
+
+li.risk.forecast::before {
+  color: var(--red-color);
+}
+
+li.vigilance::before {
+  content: '0-9';
+}
+
+.daltonisme li.vigilance::before {
+  content: '! 0-9';
+}
+
+li.vigilance:not(.forecast)::before {
+  background-color: var(--orange-color);
+}
+
+li.vigilance.forecast::before {
+  color: var(--orange-color);
+}
+
+li.no-risk::before {
+  content: '0-9';
+}
+
+.daltonisme li.no-risk::before {
+  content: '✔ 0-9';
+}
+
+li.no-risk:not(.forecast)::before {
+  background-color: var(--green-color);
+}
+
+li.no-risk.forecast::before {
+  color: var(--text-color);
+}
+
+@media(min-width: 768px) {
+  .legends-group {
+    flex: none;
+  }
+
+
+  .legends ul {
+    flex-direction: row;
+  }
+}
+
+/************************************************************/
+/** 12- Pied de page                                        */
+/************************************************************/
+footer {
+  width: var(--content-size);
+  background-color: var(--bg-dark-color);
+  border: 20px solid var(--bg-light-color);
+  padding: 10px;
+  color: var(--text-light-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+footer .links {
+  display: flex;
+}
+
+footer a {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  color: var(--text-light-color);
+}
+
+footer a:not(:first-child)::before {
+  content: '-';
+  display: flex;
+  padding: 0 5px;
+}
+
+footer .logo {
+  text-align: right;
+}
+
+footer .logo img {
+  height: 30px;
+}
+
+#daltonisme::after {
+  margin-left: 5px;
+  display: flex;
+  width: 30px;
+  height: 20px;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--red-color);
+  border-radius: 5px;
+  
+  font-weight: 700;
+  color: white;
+  content: 'off'
+}
+
+.daltonisme #daltonisme::after {
+  /* color: var(--green-color); */
+  background-color: var(--green-color);
+  content: 'on'
+}

@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout>
+	<div class="nav">
+		<a class="icon button" href="">
+			<!-- <span class="material-symbols-rounded blue">arrow_left</span> --><span>Parcellaire</span>
+		</a>
+		<!-- <div class="user">
+			<span class="label">Bienvenue Michel Durand</span>
+			<button class="icon"><span class="material-symbols-rounded blue">person</span></button>
+		</div> -->
+	</div>
+
+	<main>
+
+		<div class="update">
+			<p class="update">Informations mises à jour le 01/12/22 - 17h55</p>
+			<button class="update">Actualiser</button>
+		</div>
+
+		<!-- <fieldset class="sort">
+			<legend>Regrouper les parcelles</legend>
+			<div>
+				<input type="radio" name="sort" id="station" checked>
+				<label for="station">par station</label>
+			</div>
+
+			<div>
+				<input type="radio" name="sort" id="farm">
+				<label for="farm">par exploitation</label>
+			</div>
+
+		</fieldset> -->
+
+		<div>Résultats du 22/11/2022</div>
+
+		<div class="parcels">
+			<div class="group">
+				<h2>Exploitation 1</h2>
+				<ul class="plots">
+					<li class="clickable">
+						<div class="status risk stade-1"></div>
+						<div class="detail">
+							<h3><a href="./detail.html">Parcelle TestIsagri6</a></h3>
+							<p class="red">Traitement immédiat recommandé</p>
+							<p>Poids de contamination: 0.00</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="group">
+				<h2>Exploitation 2</h2>
+				<ul class="plots">
+					<li class="clickable">
+						<div class="status no-risk stade-2"></div>
+						<div class="detail">
+							<h3><a href="./detail.html">Parcelle Test bricoleurs</a></h3>
+							<p class="green">Non levée</p>
+							<p>Poids de contamination: 0.00</p>
+						</div>
+					</li>
+					<li class="clickable">
+						<div class="status warning stade-3"></div>
+						<div class="detail">
+							<h3><a href="./detail.html">Parcelle Test Samuel Maillard</a></h3>
+							<p class="green">Non levée</p>
+							<p>Poids de contamination: 0.00</p>
+						</div>
+					</li>
+					<li class="clickable">
+						<div class="status unknown stade-4"></div>
+						<div class="detail">
+							<h3><a href="./detail.html">Parcelle Test ND</a></h3>
+							<p class="light">Indices non-calculés</p>
+							<p class="light">Poids de contamination: ND</p>
+						</div>
+					</li>
+					<li class="clickable">
+						<div class="status no-risk stade-5"></div>
+						<div class="detail">
+							<h3><a href="./detail.html">Parcelle Test VN1</a></h3>
+							<p class="green">Non levée</p>
+							<p>Poids de contamination: 0.00</p>
+						</div>
+					</li>
+					<li class="clickable">
+						<div class="status warning stade-6"></div>
+						<div class="detail">
+							<h3><a href="./detail.html">Parcelle Test VN2</a></h3>
+							<p class="green">Non levée</p>
+							<p>Poids de contamination: 0.00</p>
+						</div>
+					</li>
+					<li class="clickable">
+						<div class="status unknown stade-7"></div>
+						<div class="detail">
+							<h3><a href="./detail.html">Parcelle VN3</a></h3>
+							<p class="light">Indices non-calculés</p>
+							<p class="light">Poids de contamination: ND</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+	</main>
+</Layout>
