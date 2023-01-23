@@ -12,6 +12,7 @@
 /** 10- Tableau des risques                                 */
 /** 11- Légende du tableau des risques                      */
 /** 12- Pied de page                                        */
+/** 13- Filtrage sur la liste des parcelles                 */
 /************************************************************/
 
 /* @import url(./reset.css); */
@@ -82,6 +83,10 @@ h2 {
 
 .red {
   color: var(--red-color);
+}
+
+.orange {
+  color: var(--orange-color);
 }
 
 .green {
@@ -279,7 +284,7 @@ header img {
 main {
   width: var(--content-size);
   background-color: var(--bg-light-color);
-  padding: 10px;
+  padding: 10px 20px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -371,47 +376,51 @@ ul.plots li {
 
 } */
 
-.status.no-risk {
+:is(li, .plot-detail).no-risk .status {
   /* background-color: var(--green-color);
   outline-color: var(--green-color); */
   border-color: var(--green-color);
   /* background-color: var(--green-color-alpha); */
 }
 
-.daltonisme .status.no-risk::before {
+.daltonisme li.no-risk .status::before {
   content: '✔';
 }
 
-.status.risk {
+:is(li, .plot-detail).risk .status {
   /* background-color: var(--red-color);
   outline-color: var(--red-color); */
   border-color: var(--red-color);
   /* background-color: var(--red-color-alpha); */
 }
 
-.daltonisme .status.risk::before {
+.daltonisme li.risk .status::before {
   content: 'R';
 }
 
-.status.warning {
+:is(li, .plot-detail).vigilance .status {
   /* background-color: var(--orange-color);
   outline-color: var(--orange-color); */
   border-color: var(--orange-color);
   /* background-color: var(--orange-color-alpha); */
 }
 
-.daltonisme .status.warning::before {
+.daltonisme li.vigilance .status::before {
   content: '!';
 }
 
-.status.unknown {
+:is(li, .plot-detail).unknown .status {
   /* background-color: var(--text-light-color);
   outline-color: var(--text-light-color); */
   border-color: var(--text-light-color);
   /* background-color: var(--bg-darken-color); */
 }
 
-.daltonisme .status.unknown::before {
+li.unknown :is(.advice, .contamination) {
+  color: var(--text-light-color);
+}
+
+.daltonisme li.unknown .status::before {
   content: '?';
 }
 
@@ -580,20 +589,31 @@ ul.plots .detail p {
   /* margin: 20px 0;
   border: 1px solid var(--bg-dark-color);
   padding: 20px; */
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
 }
 
-.advice.risk, .advice.risk strong {
+.no-risk .advice, .no-risk .advice strong {
+  color: var(--green-color);
+}
+
+.vigilance .advice, .vigilance .advice strong {
+  color: var(--orange-color);
+}
+
+.risk .advice, .risk .advice strong {
   color: var(--red-color);
 }
 
-.advice.risk::before {
+.risk .advice::before, .advice.risk::before {
   content: '\E000';
   font-family: 'Material Symbols Rounded';
   font-size: 1.2rem;
 }
 
 @media(min-width: 768px) {
-  .advice {
+  .plot-detail .advice {
     margin-left: 10px;
   }
 }
@@ -615,38 +635,23 @@ td {
 }
 
 td.left {
-  border-left-width: px;
+  border-left-width: 3px;
   border-left-color: var(--bg-darken-color);
 }
 
 td.right {
-  border-right-width: 2px;
+  border-right-width: 3px;
   border-right-color: var(--bg-darken-color);
 }
 
 td.bottom {
-  border-bottom-width: 2px;
+  border-bottom-width: 3px;
   border-bottom-color: var(--bg-darken-color);
 }
 
 td.top {
-  border-top-width: 2px;
+  border-top-width: 3px;
   border-top-color: var(--bg-darken-color);
-}
-
-td.forecast {
-  background-color: var(--bg-dark-color);
-}
-
-.daltonisme td.forecast {
-  background-color: var(--bg-dark-color);
-  background: repeating-linear-gradient(
-  -45deg,
-  var(--bg-light-color),
-  var(--bg-light-color) 10px,
-  var(--bg-dark-color) 10px,
-  var(--bg-dark-color) 20px
-);
 }
 
 .dates td:first-child, .row-legend td , .date-selector td {
@@ -682,23 +687,131 @@ td.forecast {
   outline-offset: 1px;
 }
 
-.legend, .j-4, .j-3, .j-2, .j2 {
+.legend, .j-4, .j-3, .j-2 {
+/* .legend, .j-4, .j-3, .j-2, .j2 { */
   display: none;
 }
+
+span.year {
+  display: none;
+}
+
+/**En tête avec réel , Prévu**/
+tr.real-forecast td:is(.xl, .l) {
+  display: none;
+}
+
+.container-right, .container-left {
+  display: flex;
+  flex: 1;
+  line-height: 2rem;
+  /* padding: 0 10px; */
+  align-items: center;
+}
+
+.container-left {
+  color: var(--text-light-color);
+}
+
+.container-right {
+  justify-content: right;
+  padding: 0 20px 0 10px;
+}
+
+.container-left {
+  justify-content: left;
+  padding: 0 10px 0 20px;
+}
+
+.arrow-left, .arrow-right {
+  position: relative;
+  display: block;
+  flex: 1;
+  height: 1px;
+  margin: 0 5px;
+}
+
+.arrow-left {
+  background-color: var(--text-color);
+}
+
+.arrow-right {
+  background-color: var(--text-light-color);
+}
+
+.arrow-left::before, .arrow-right::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: .5rem;
+  height: 1px;
+  top: -.2rem;
+}
+
+.arrow-left::before {
+  left: 0;
+  transform: rotate(-45deg);
+  background-color: var(--text-color);
+}
+
+.arrow-right::before {
+  right: 0;
+  transform: rotate(45deg);
+  background-color: var(--text-light-color);
+
+}
+
+.arrow-left::after, .arrow-right::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: .5rem;
+  height: 1px;
+  background: black;
+  top: .2rem;
+}
+
+.arrow-left::after {
+  left: 0;
+  transform: rotate(45deg);
+  background-color: var(--text-color);
+
+}
+
+.arrow-right::after {
+  right: 0px;
+  transform: rotate(-45deg);
+  background-color: var(--text-light-color);
+
+}
+/*****************************/
 
 .j {
   font-weight: 700;
 }
 
 .dates td.j {
-  min-width: 150px;
+  min-width: 100px;
 }
 
 td.forecast {
   color: var(--text-light-color);
+  /* background-color: var(--bg-dark-color); */
 }
 
-td.risk:not(.forecast) {
+.daltonisme td.forecast {
+  background-color: var(--bg-dark-color);
+  background: repeating-linear-gradient(
+  -45deg,
+  var(--bg-light-color),
+  var(--bg-light-color) 10px,
+  var(--bg-dark-color) 10px,
+  var(--bg-dark-color) 20px
+);
+}
+
+td.risk {
+/* td.risk:not(.forecast) { */
   background-color: var(--red-color);
   color: white;
 }
@@ -731,11 +844,12 @@ td.risk:not(.forecast) {
   content: 'R';
 }
 
-td.risk.forecast {
+/* td.risk.forecast {
   color: var(--red-color);
-}
+} */
 
-td.vigilance:not(.forecast) {
+td.vigilance {
+/* td.vigilance:not(.forecast) { */
   background-color: var(--orange-color);
   /* color: white; */
 }
@@ -744,27 +858,42 @@ td.vigilance:not(.forecast) {
   content: '!';
 }
 
-td.vigilance.forecast {
+/* td.vigilance.forecast {
   color: var(--orange-color);
-  /* text-shadow: black 1px 0 2px; */
-  /* -webkit-text-stroke: 1px black; */
-}
+} */
 
 .daltonisme td.no-risk::before {
   content: '\2714';
   
 }
 
-td.no-risk:not(.forecast) {
+td.no-risk {
+/* td.no-risk:not(.forecast) { */
   background-color: var(--green-color);
 }
 
-td.no-risk.forecast {
-  color: var(--text-color);
+td.unknown {
+  background-color: var(--bg-darken-color);
 }
+
+/* td.no-risk.forecast {
+  color: var(--text-color);
+} */
 
 @media(min-width: 768px) {
   .j-2, .j2 {
+    display: table-cell;
+  }
+
+  span.year {
+    display: inline;
+  }
+
+  tr.real-forecast td:is(.xl, .sm) {
+    display: none;
+  }
+
+  tr.real-forecast td.l {
     display: table-cell;
   }
 }
@@ -784,6 +913,14 @@ td.no-risk.forecast {
 
   .periods td:first-child {
     background-color: transparent;
+  }
+
+  tr.real-forecast td:is(.l, .sm) {
+    display: none;
+  }
+
+  tr.real-forecast td.xl {
+    display: table-cell;
   }
 }
 
@@ -814,7 +951,7 @@ td.no-risk.forecast {
   margin: 0;
   padding: 0;
   gap: 10px;
-  border: 1px solid var(--bg-darken-color);
+  /* border: 1px solid var(--bg-darken-color); */
   border-radius: 5px;
   padding: 10px;
 }
@@ -825,7 +962,8 @@ td.no-risk.forecast {
 }
 
 .legends li::before  {
-  content:'0-9';
+  /* content:'0-9'; */
+  content: '';
   font-size: .8rem;
   display: flex;
   align-items: center;
@@ -852,53 +990,57 @@ li.forecast::before {
 );
 }
 
-li.risk::before {
+/* .legends li.risk::before {
   content: '0-9';
 }
 
-.daltonisme li.risk::before {
+.daltonisme .legends li.risk::before {
   content: 'R 0-9';
-}
+} */
 
-li.risk:not(.forecast)::before {
+.legends li.risk:not(.forecast)::before {
   background-color: var(--red-color);
   color: white;
 }
 
-li.risk.forecast::before {
+.legends li.risk.forecast::before {
   color: var(--red-color);
 }
 
-li.vigilance::before {
+/* .legends li.vigilance::before {
   content: '0-9';
 }
 
-.daltonisme li.vigilance::before {
+.daltonisme .legends li.vigilance::before {
   content: '! 0-9';
-}
+} */
 
-li.vigilance:not(.forecast)::before {
+.legends li.vigilance:not(.forecast)::before {
   background-color: var(--orange-color);
 }
 
-li.vigilance.forecast::before {
+.legends li.vigilance.forecast::before {
   color: var(--orange-color);
 }
 
-li.no-risk::before {
+/* .legends li.no-risk::before {
   content: '0-9';
 }
 
-.daltonisme li.no-risk::before {
+.daltonisme .legends li.no-risk::before {
   content: '✔ 0-9';
-}
+} */
 
-li.no-risk:not(.forecast)::before {
+.legends li.no-risk:not(.forecast)::before {
   background-color: var(--green-color);
 }
 
-li.no-risk.forecast::before {
+.legends li.no-risk.forecast::before {
   color: var(--text-color);
+}
+
+.legends li.unknown:not(.forecast)::before {
+  background-color: var(--bg-darken-color);
 }
 
 @media(min-width: 768px) {
@@ -971,4 +1113,54 @@ footer .logo img {
   /* color: var(--green-color); */
   background-color: var(--green-color);
   content: 'on'
+}
+
+/************************************************************/
+/** 13- Filtrage sur la liste des parcelles                 */
+/************************************************************/
+.plots-filter {
+  display: flex;
+  column-gap: 15px;
+  row-gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.plots-filter>div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.plots-filter button {
+  color: var(--blue-color);
+}
+
+.plots-filter input[type="checkbox"] {
+  display: none;
+}
+
+.plots-filter input[type="checkbox"]+label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.plots-filter input[type="checkbox"]+label::before {
+  content: '';
+  color: var(--green-color);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+  border: 1px solid var(--text-light-color);
+}
+
+.plots-filter input[type="checkbox"]:checked+label::before {
+  /* background-color: var(--green-color); */
+  content: '✔';
 }

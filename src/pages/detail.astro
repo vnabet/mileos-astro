@@ -27,8 +27,8 @@ import Layout from '../layouts/Layout.astro';
       <button>Actualiser</button>
     </div>
 
-    <div class="plot-detail">
-      <div class="status risk stade-5"></div>
+    <div class="plot-detail risk">
+      <div class="status stade-5"></div>
       <div>
         <ul class="infos">
           <li class="hidden-small"><div class="label">Exploitation</div><div class="value">ISAGRI1</div></li>
@@ -38,8 +38,8 @@ import Layout from '../layouts/Layout.astro';
           <li><div class="label">Variété</div><div class="value">ANNABELLE</div></li>
           <li><div class="label">Date de levée</div><div class="value">18/05/2022</div></li>
         </ul>
-        <div class="advice risk">
-          <strong>Conseil</strong>: Un traitement était préconisé le 24/09/2022. Traiter le 29/11/2022 avec un prénétrant
+        <div class="advice">
+          <strong>Conseil:</strong> Un traitement était préconisé le 24/09/2022. Traiter le 29/11/2022 avec un prénétrant
         </div>
       </div>
     </div>
@@ -65,13 +65,23 @@ import Layout from '../layouts/Layout.astro';
         </tr>
         <tr class="dates">
           <td class="legend head"></td>
-          <td class="j-4">20/11/2022</td>
-          <td class="j-3">21/11/2022</td>
-          <td class="j-2">22/11/2022</td>
-          <td class="j-1">23/11/2022</td>
-          <td class="j left right top" colspan="2">24/11/2022</td>
-          <td class="j1">25/11/2022</td>
-          <td class="j2">25/11/2022</td>
+          <td class="j-4">20/11<span class="year">/2022</span></td>
+          <td class="j-3">21/11<span class="year">/2022</span></td>
+          <td class="j-2">22/11<span class="year">/2022</span></td>
+          <td class="j-1">23/11<span class="year">/2022</span></td>
+          <td class="j left right top" colspan="2">24/11<span class="year">/2022</span></td>
+          <td class="j1">25/11<span class="year">/2022</span></td>
+          <td class="j2">25/11<span class="year">/2022</span></td>
+        </tr>
+
+        <tr class="real-forecast">
+          <td class="legend head"></td>
+          <td colspan="5" class="xl real"><div class="container-right"><span class="arrow-left"></span>Réel</div></td>
+          <td colspan="3" class="xl forecast"><div class="container-left">Prévu<span class="arrow-right"></span></div></td>
+          <td colspan="3" class="l real"><div class="container-right"><span class="arrow-left"></span>Réel</div></td>
+          <td colspan="3" class="l forecast"><div class="container-left">Prévu<span class="arrow-right"></span></div></td>
+          <td colspan="2" class="sm real"><div class="container-right"><span class="arrow-left"></span>Réel</div></td>
+          <td colspan="3" class="sm forecast"><div class="container-left">Prévu<span class="arrow-right"></span></div></td>
         </tr>
       </thead>
 
@@ -115,9 +125,9 @@ import Layout from '../layouts/Layout.astro';
         <td class="j-2 no-risk">8.99</td>
         <td class="j-1 no-risk">8.99</td>
         <td class="j left no-risk">8.99</td>
-        <td class="j right forecast risk">8.99</td>
+        <td class="j right forecast no-risk">8.99</td>
         <td class="j1 forecast risk">8.99</td>
-        <td class="j2 forecast no-risk">8.99</td>
+        <td class="j2 forecast unknown">8.99</td>
       </tr>
 
 
@@ -184,20 +194,21 @@ import Layout from '../layouts/Layout.astro';
 
     <div class="legends">
       <div class="legends-group">
-        <h4>Réel</h4>
+        <!-- <h4>Réel</h4> -->
         <ul>
           <li class="no-risk">Pas de risque</li>
           <li class="vigilance">Vigilance</li>
           <li class="risk">Risque</li>
+          <li class="unknown">Non déterminé</li>
         </ul>
       </div>
-      <div class="legends-group">
+      <!-- <div class="legends-group">
         <h4>Prévisionnel</h4>
         <ul>
           <li class="no-risk forecast">Pas de risque</li>
           <li class="risk forecast">Risque</li>
         </ul>
-      </div>
+      </div> -->
     </div>
 
     
