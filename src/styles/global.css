@@ -880,7 +880,8 @@ td.unknown {
   color: var(--text-color);
 } */
 
-@media(min-width: 768px) {
+@media(min-width: 576px) {
+/* @media(min-width: 768px) { */
   .j-2, .j2 {
     display: table-cell;
   }
