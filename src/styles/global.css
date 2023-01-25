@@ -29,12 +29,14 @@
   /* --border-color:  */
 
   --blue-color: #1d83f6;
-  --green-color: #94cc3d;
+  /* --green-color: #94cc3d; */
+  --green-color: #6db900;
   --green-color-alpha: #94cc3d55;
   --red-color: #be202e;
   --red-color-alpha: #be202e55;
   --red-light-color: #df6c76;
-  --orange-color: #ffa500;
+  --orange-color: #ff8400;
+  /* --orange-color: #ffa500; */
   --orange-color-alpha: #ffa50055;
 
   --text-color: #000;
