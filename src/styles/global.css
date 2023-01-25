@@ -32,7 +32,8 @@
   /* --green-color: #94cc3d; */
   --green-color: #6db900;
   --green-color-alpha: #94cc3d55;
-  --red-color: #be202e;
+  --red-color: #ff0000;
+  /* --red-color: #be202e; */
   --red-color-alpha: #be202e55;
   --red-light-color: #df6c76;
   --orange-color: #ff8400;
@@ -45,6 +46,8 @@
 
   /* --content-size: clamp(200px, 100vw, 1024px); */
   --content-size: clamp(200px, 100vw, 1200px);
+
+  --lateral-marge: 15px;
 }
 
 /************************************************************/
@@ -119,10 +122,12 @@ a.button {
 }
 
 button.icon, a.button.icon {
-  line-height: 2;
+  /* line-height: 2; */
   font-weight: 700;
   padding: 0;
   font-size: 1.2rem;
+  display: flex;
+  align-items: center;
 }
 
 /** Mise en forme des fieldset **/
@@ -203,6 +208,19 @@ input[type='radio']:checked+label {
   }
 }
 
+/** Utilitaires pour supprimer des marges à causes des icones pas calées sur les bords **/
+.ml-10 {
+  margin-left: -10px;
+}
+
+.mr-10 {
+  margin-right: -10px;
+}
+
+.ml-5 {
+  margin-left: -5px;
+}
+
 /************************************************************/
 /** 03- Header                                              */
 /************************************************************/
@@ -214,7 +232,8 @@ header {
   align-items: center;
   justify-content: space-between;
   background-color: var(--bg-light-color);
-  padding: 10px;
+  /* padding: 10px; */
+  padding: 10px var(--lateral-marge);
 }
 
 header img {
@@ -245,7 +264,8 @@ header img {
   top: 0;
   height: 60px;
   background-color: var(--bg-dark-color);
-  padding: 0 5px;
+  /* padding: 0 5px; */
+  padding: 0 var(--lateral-marge);
   z-index: 99;
 }
 
@@ -267,7 +287,6 @@ header img {
   }
 }
 
-
 .subnav {
   width: 100%;
   display: flex;
@@ -277,7 +296,7 @@ header img {
 .subnav a.button {
   font-weight: 300;
   font-size: 1rem;
-  line-height: 2.3;
+  /* line-height: 2.3; */
 }
 
 /************************************************************/
@@ -286,7 +305,7 @@ header img {
 main {
   width: var(--content-size);
   background-color: var(--bg-light-color);
-  padding: 10px 20px;
+  padding: 10px var(--lateral-marge);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -494,7 +513,7 @@ ul.plots .detail p {
 /** 07- Bloc de mise à jour                                 */
 /************************************************************/
 .update button {
-  background-color: var(--green-color);
+  background-color: var(--blue-color);
   color: white;
 }
 
@@ -559,17 +578,18 @@ ul.plots .detail p {
 }
 
 @media(min-width: 768px) {
-  .plot-detail {
+  /* .plot-detail {
     max-height: 80px;
   }
 
   .plot-detail>div:not(.status) {
     height: 40px;
-  }
+  } */
 
   .plot-detail ul.infos {
     flex-wrap: wrap;
-    height: 100%;
+    flex-direction: row;
+    /* height: 100%; */
     align-content: flex-start;
     margin-left: 10px;
   }
@@ -591,10 +611,17 @@ ul.plots .detail p {
   /* margin: 20px 0;
   border: 1px solid var(--bg-dark-color);
   padding: 20px; */
-  display: flex;
+  /* display: flex;
+  align-items: center;
+  column-gap: 5px; */
+}
+
+/* .advice>:first-child {
+  background: orange;
+  display: inline-flex;
   align-items: center;
   column-gap: 5px;
-}
+} */
 
 .no-risk .advice, .no-risk .advice strong {
   color: var(--green-color);
@@ -612,6 +639,8 @@ ul.plots .detail p {
   content: '\E000';
   font-family: 'Material Symbols Rounded';
   font-size: 1.2rem;
+  display: inline-block;
+  margin-right: 3px;
 }
 
 @media(min-width: 768px) {
@@ -812,10 +841,14 @@ td.forecast {
 );
 }
 
+td:is(.risk, .no-risk, .vigilance) {
+  color: white;
+}
+
 td.risk {
 /* td.risk:not(.forecast) { */
   background-color: var(--red-color);
-  color: white;
+  /* color: white; */
 }
 
 /* .daltonisme td.risk:not(.forecast) {
@@ -949,14 +982,14 @@ td.unknown {
 
 .legends ul {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
   list-style: none;
   margin: 0;
   padding: 0;
   gap: 10px;
   /* border: 1px solid var(--bg-darken-color); */
   border-radius: 5px;
-  padding: 10px;
 }
 
 .legends li {
@@ -970,12 +1003,13 @@ td.unknown {
   font-size: .8rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0 2px;
-  width: 40px;
+  justify-content: left;
+  /* padding: 0 2px; */
+  width: 20px;
   height: 20px;
   background-color: transparent;
-  margin: 0 5px;
+  /* margin: 0 5px; */
+  margin-right: 5px;
   border: 1px solid var(--bg-darken-color)
 }
 
@@ -1152,7 +1186,7 @@ footer .logo img {
 
 .plots-filter input[type="checkbox"]+label::before {
   content: '';
-  color: var(--green-color);
+  color: var(--blue-color);
   font-weight: 600;
   display: flex;
   align-items: center;
