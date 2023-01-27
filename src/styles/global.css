@@ -477,17 +477,18 @@ li.unknown :is(.advice, .contamination) {
 ul.plots .detail {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: top;
   padding-left: 10px;
 }
 
 ul.plots .detail h3 {
   font-size: 1rem;
   line-height: 1.5;
+  font-weight: 300;
 }
 
 ul.plots .detail h3 a {
-  color: var(--blue-color);
+  /* color: var(--blue-color); */
   text-decoration: none;
 }
 
@@ -519,13 +520,14 @@ ul.plots .detail p {
 
 .update {
   color: var(--text-light-color);
+  display: flex;
+    gap: 20px;
+    align-items: center;
 }
 
 @media(min-width: 768px) {
   .update {
-    display: flex;
-    gap: 20px;
-    align-items: center;
+    
   }
 }
 
@@ -622,6 +624,10 @@ ul.plots .detail p {
   align-items: center;
   column-gap: 5px;
 } */
+
+:is(.risk, .no-risk, .vigilance) .advice {
+font-weight: 600;
+}
 
 .no-risk .advice, .no-risk .advice strong {
   color: var(--green-color);
@@ -1200,6 +1206,11 @@ footer .logo img {
   align-items: center;
   flex-direction: row-reverse;
   justify-content: space-between;
+}
+
+
+.plots-filter label>span {
+  font-weight: 600;
 }
 
 .plots-filter input[type="checkbox"] {
